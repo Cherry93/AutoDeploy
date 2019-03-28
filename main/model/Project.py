@@ -1,6 +1,6 @@
 from main import db
-
-class projects(db.Model):
+from main.utils.jsonencoder import JsonSerializer
+class projects(JsonSerializer,db.Model):
     id = db.Column(db.BIGINT,primary_key=True)
     name = db.Column(db.VARCHAR)
     repo_url = db.Column(db.VARCHAR)

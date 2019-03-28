@@ -1,6 +1,6 @@
 from main import db
-
-class oper_log(db.Model):
+from main.utils.jsonencoder import JsonSerializer
+class oper_log(JsonSerializer,db.Model):
     id = db.Column(db.BIGINT,primary_key=True)
     deploy_id = db.Column(db.BIGINT)
     username = db.Column(db.VARCHAR)

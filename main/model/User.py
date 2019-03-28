@@ -1,6 +1,6 @@
 from main import db
-
-class users(db.Model):
+from main.utils.jsonencoder import JsonSerializer
+class users(JsonSerializer,db.Model):
     id = db.Column(db.BIGINT, primary_key=True)
     name = db.Column(db.VARCHAR)
     password = db.Column(db.VARCHAR)

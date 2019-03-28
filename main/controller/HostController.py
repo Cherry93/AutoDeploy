@@ -7,7 +7,7 @@ from flask import request,session
 @app.route('/host/all',methods=["GET"])
 def list():
     list = hostService.all()
-    return jsonify()
+    return jsonify(dict(data=list))
 
 @app.route('/host/add',methods=["POST"])
 def addhost():

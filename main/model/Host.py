@@ -1,6 +1,6 @@
 from main import db
-
-class hosts(db.Model):
+from main.utils.jsonencoder import JsonSerializer
+class hosts(JsonSerializer,db.Model):
     id = db.Column(db.BIGINT,primary_key=True)
     host_ip = db.Column(db.VARCHAR)
     ssh_username = db.Column(db.VARCHAR)
