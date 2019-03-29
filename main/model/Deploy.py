@@ -6,4 +6,4 @@ class deploys(JsonSerializer,db.Model):
     host_id = db.Column(db.BIGINT)
     branch = db.Column(db.VARCHAR)
     status = db.Column(db.Integer)
-    create_date = db.Column(db.DATE)
+    create_date = db.Column(db.DATETIME)

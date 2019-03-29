@@ -32,6 +32,9 @@ class Base(object):
         query = self.session.query(self.__model__).filter_by(**kargs)
         return query
 
+    def first(self, **kargs):
+        return self.session.query(self.__model__).filter_by(**kargs).first()
+
     def get(self, id):
         self.session.expire_all()
         return self.session.query(self.__model__).get(id)
@@ -47,6 +50,9 @@ class Base(object):
             setattr(model, k, v)
         self.save(model)
         return model
+
+    def delete(self,model):
+        self.session.delete(model)
 
     def __del__(self):
         self.session.close()
