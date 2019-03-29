@@ -5,7 +5,7 @@
 
 技术|功能说明
 ----|------|
-        flask           |  python的web开发框架  
-    sqlAlchemy          |  python的orm框架      
- mysql-connector-python |  python连接mysql的驱动
-      logging           |    日志库             
+flask|python的web开发框架  
+sqlAlchemy|python的orm框架      
+mysql-connector-python|python连接mysql的驱动
+logging|日志库             
