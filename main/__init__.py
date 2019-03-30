@@ -22,4 +22,4 @@ app.config['SECRET_KEY']="123456"
 db = SQLAlchemy(app)
 db_session = db.session
 app.json_encoder = JSONEncoder
-from .controller import UserController,AdminController
+from .controller import UserController,AdminController,ApiController
