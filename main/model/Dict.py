@@ -5,4 +5,4 @@ class dicts(JsonSerializer,db.Model):
     name = db.Column(db.VARCHAR)
 
     def __str__(self):
-        return "dict dict_id is %s,name: %d" % (self.id, self.name)
+        return "dict dict_id is %s,name: %s" % (self.id, self.name)

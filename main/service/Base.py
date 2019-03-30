@@ -23,7 +23,7 @@ class Base(object):
             else:
                 query = query.order_by(order_by)
         if offset is not None:
-            query = query.offset(offset)
+            query = query.offset((offset-1)*limit)
         if limit is not None:
             query = query.limit(limit)
         return query.all()
@@ -45,14 +45,15 @@ class Base(object):
     def session_commit(self):
         self.session.commit()
 
-    def update(self, model, **kargs):
-        for k, v in kargs.items():
+    def update(self, model, **kwargs):
+        for k, v in kwargs.items():
             setattr(model, k, v)
         self.save(model)
         return model
 
     def delete(self,model):
         self.session.delete(model)
+        self.session_commit()
 
     def __del__(self):
         self.session.close()

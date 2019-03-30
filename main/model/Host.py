@@ -8,4 +8,4 @@ class hosts(JsonSerializer,db.Model):
     create_date = db.Column(db.DATETIME)
 
     def __str__(self):
-        return "host host_id is %s,host_ip: %d, ssh_username: %s,ssh_password : %s" % (self.id, self.host_ip,self.ssh_username,self.ssh_password)
+        return "host host_id is %s,host_ip: %s, ssh_username: %s,ssh_password : %s" % (self.id, self.host_ip,self.ssh_username,self.ssh_password)

@@ -42,8 +42,6 @@ def oper():
     operLogService.create(user_id=user[u'id'],username=user[u'name'],comment="oper",create_date=datetime.now())
     return render_template('login.html')
 
-
-
 @app.route('/index')
 def index():
     return render_template('login.html')
