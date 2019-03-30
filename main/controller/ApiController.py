@@ -10,7 +10,7 @@ from .UserController import authorize
 @app.route('/api/project/list/<int:id>')
 @authorize(value=0)
 def dict_projects(id):
-    projects = projectService.find(dict_id=id)
+    projects = projectService.find(dict_id=id).all()
     return jsonify(dict(code=200,data=projects))
 
 @app.route("/api/projects/<int:id>/branches")
