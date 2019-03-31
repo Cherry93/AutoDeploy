@@ -10,14 +10,14 @@ class Git(object):
         self.url = url
 
     def local_branch(self):
-        shell = "cd {0} && git fetch -q -a && git branch".format(self.dest)
+        shell = "cd {0} && git branch".format(self.dest)
         stdout = LocalShell.check_output(shell, shell=True)
         stdout = stdout.strip().split("\n")
         stdout = [s.strip("* ") for s in stdout]
         return stdout
 
     def remote_branch(self):
-        shell = "cd {0} && git fetch -q -a && git branch -r".format(self.dest)
+        shell = "cd {0} && git branch -r".format(self.dest)
         stdout = LocalShell.check_output(shell, shell=True)
         stdout = stdout.strip().split("\n")
         stdout = [s.strip(" ").split("/", 1)[1] for s in stdout if "->" not in
@@ -37,8 +37,8 @@ class Git(object):
 
     def clone(self):
         logger.debug("clone repo:")
-        shell = ("mkdir {0} && cd {0} && git clone -q {1} "
-                 ).format(self.dest, self.url)
+        shell = ("git clone -q {0} "
+                 ).format(self.url)
         rc = LocalShell.call(shell, shell=True)
         if rc != 0:
             raise RuntimeError
@@ -58,7 +58,7 @@ class Git(object):
                                   shell=True)
     def package(self,branch):
         logger.debug("package project:")
-        shell = ("cd {0} && git checkout {1} && mvn install -DskipTests=true").format(self.dest, branch)
+        shell = ("cd {0} && git checkout {1} && mvn package -DskipTests=true").format(self.dest, branch)
         rc = LocalShell.call(shell, shell=True)
         if rc != 0:
             raise RuntimeError
