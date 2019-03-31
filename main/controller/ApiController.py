@@ -2,7 +2,7 @@ from main import app,logger
 from flask import request,session,jsonify
 from main.service.HostService import hostService
 from main.service.DictService import dictService
-from main.service.OperLogService import operLogService
+from main.service.DeployService import deployService
 from main.service.ProjectService import projectService
 from main.service.UserService import userService
 from .UserController import authorize
@@ -31,3 +31,16 @@ def project_branch_commits(id, branch):
     projectService.git_clone(project)
     return jsonify(dict(rc=0,
                         data=projectService.git_branch_commit_log(project, branch)))
+
+@app.route("/api/deploys", methods=["POST"])
+@authorize(value=1)
+def api_post_deploy():
+    form = DeployForm()
+    form.project_id = request.form.get("project_id",type=int)
+    form.branch = request.form.get("branch")
+    form.commit = request.form.get("commit")
+    deployService.deploy(form)
+    return jsonify(dict())
+
+class DeployForm():
+    pass
