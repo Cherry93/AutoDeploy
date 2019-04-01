@@ -16,5 +16,9 @@ class DeployService(Base):
         git.checkout_branch(form.branch,form.commit)
         # deploy
         git.package(form.branch)
+        # rsync
+        # rsync -avzq --rsh="sshpass -p itcast ssh -p 22"
+        # /home/dongmengyuan/deployProjects/SpringBootTest/target/demo-0.0.1-SNAPSHOT.jar
+        # itcast@172.20.10.2:/home/itcast/Desktop/deployProjects/
         pass
 deployService = DeployService()

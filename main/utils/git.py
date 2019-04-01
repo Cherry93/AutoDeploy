@@ -46,7 +46,7 @@ class Git(object):
             shell = ("cd {0} && git pull").format(self.location+self.dest)
             rc = LocalShell.call(shell, shell=True)
             # branch name required
-            if rc == 123:
+            if rc == 0:
                 return
         if rc != 0:
             raise RuntimeError
@@ -70,3 +70,5 @@ class Git(object):
         rc = LocalShell.call(shell, shell=True)
         if rc != 0:
             raise RuntimeError
+    def deploy(self):
+        pass
