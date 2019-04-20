@@ -13,7 +13,7 @@ formatter = logging.Formatter('%(asctime)s - %(process)d - %(thread)d - %(messag
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
-app = Flask(__name__,template_folder='../templates')
+app = Flask(__name__,static_folder='../static',template_folder='../templates')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:1322762504@localhost:3306/AutoDeploy"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True

@@ -135,7 +135,7 @@ HTML_ENTITIES = {
     "icirc": 238,
     "iexcl": 161,
     "igrave": 236,
-    "image": 8465,
+    "img": 8465,
     "infin": 8734,
     "int": 8747,
     "iota": 953,

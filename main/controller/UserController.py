@@ -3,7 +3,7 @@ from main import app
 from main.service.UserService import userService
 from main.service.OperLogService import operLogService
 from flask import request,session
-from flask import render_template
+from flask import render_template,jsonify
 from flask import make_response
 from datetime import datetime
 from functools import wraps
@@ -29,8 +29,7 @@ def login():
     if user is not None:
         user.password = None
         session['user'] = user
-        response = make_response(render_template('Welcome.html',user=user))
-        return response
+        return render_template('Webapp/../../templates/main.html', user = user)
     else:
         message = "username not matched password"
         return render_template('login.html',message = message)

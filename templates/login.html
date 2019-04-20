@@ -1,25 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>AutoDeploy-Login</title>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/layui/css/admin.css">
 </head>
 <body>
-    <div>
-        <form action="/login" method="post">
+<div id="container">
+    <h1>欢迎使用AutoDeploy系统</h1>
+    <!--<h1>Welcome To AutoDeploy</h1>-->
+    <div></div>
+    <div class="admin-login-background">
+        {% if message %}
+            <p style="color:red;font-size:20px">{{ message }}</p>
+        {% endif %}
+        <form class="layui-form" action="/login" method="post">
             <div>
-                username:<input id="name" name="name">
+                <i class="layui-icon layui-icon-username admin-icon admin-icon-username"></i>
+                <input type="text" name="name" id="username" placeholder="请输入用户名"
+                       autocomplete="off"
+                       class="layui-input admin-input admin-input-username">
             </div>
             <div>
-                password:<input type="password" id="password" name="password">
+                <i class="layui-icon layui-icon-password admin-icon admin-icon-password"></i>
+                <input type="password" name="password" id="password"
+                       placeholder="请输入密码"
+                       autocomplete="off"
+                       class="layui-input admin-input">
             </div>
-            <input type="submit" value="Login">
-            {% if message %}
-                <h1>{{ message }}</h1>
-            {% else %}
-            {% endif %}
-        </form>
 
+            <button  id="login" type="submit" class="layui-btn admin-button" lay-submit lay-filter="formDemo" >Login</button>
+
+        </form>
     </div>
+
+</div>
+<script src="../static/layui/layui.js"></script>
+<script src="../static/jQuery.min.js"></script>
+<script type="text/javascript">
+    {#$("#login").click(function(){#}
+    {#		var username = $("#username").val();#}
+    {#		var password = $("#password").val();#}
+    {#		if(username == "" || password==""){#}
+    {#			alert('错误',"用户名密码不能为空！");#}
+    {#			return ;#}
+    {#		}#}
+    {#        $.post("/login", {name:username,password:password}, function (data) {#}
+    {#            if (data.code == 200) {#}
+    {#                alert('提示', '登录成功!', undefined, function () {#}
+    {#                    window.location.href="/indexS";#}
+    {#                });#}
+    {#            }else {#}
+    {#                alert('错误',"用户名密码错误！");#}
+    {#                return ;#}
+	{#			}#}
+    {#        });#}
+    {#	});#}
+</script>
 </body>
 </html>

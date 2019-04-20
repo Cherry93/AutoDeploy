@@ -1,49 +1,102 @@
 <!DOCTYPE html>
-<html>	
+<html>
 <head>
-<title>Login</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<meta name="keywords" content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates" />
-<link href="../static/css/loginstyle.css" rel='stylesheet' type='text/css' />
-<!--webfonts-->
-<link href='http://fonts.useso.com/css?family=PT+Sans:400,700,400italic,700italic|Oswald:400,300,700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.useso.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-<!--//webfonts-->
-<script src="http://ajax.useso.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{% block title %}{% endblock %}AutoDeploy</title>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    {% endblock %}
 </head>
-<body>
-<script>$(document).ready(function(c) {
-	$('.close').on('click', function(c){
-		$('.login-form').fadeOut('slow', function(c){
-	  		$('.login-form').remove();
-		});
-	});	  
-});
-</script>
- <!--SIGN UP-->
- <h1>klasikal Login Form</h1>
-<div class="login-form">
-	<div class="close"> </div>
-		<div class="head-info">
-			<label class="lbl-1"> </label>
-			<label class="lbl-2"> </label>
-			<label class="lbl-3"> </label>
-		</div>
-			<div class="clear"> </div>
-	<div class="avtar">
-		<img src="../static/image/avtar.png" />
-	</div>
-			<form>
-					<input type="text" class="text" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}" >
-						<div class="key">
-					<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-						</div>
-			</form>
-	<div class="signin">
-		<input type="submit" value="Login" >
-	</div>
-</div>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    {% block header%}
+    <div class="layui-header">
+        <div class="layui-logo">AutoDeploy</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="Webapp/test.html" target="option">使用手册</a></li>
+            <li class="layui-nav-item"><a href="Webapp/test.html" target="option">开发设计</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    {{ user.name }}
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="Webapp/userInformation.html" target="option">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="Webapp/login.html">out</a></li>
+        </ul>
+    </div>
+    {% endblock %}
 
+    {% block black %}
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">项目</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="Webapp/projectTable.html" target="option">项目列表</a></dd>
+                        <dd><a href="Webapp/projectCreate.html" target="option">项目创建</a></dd>
+                        <dd><a href="Webapp/projectIntroduction.html" target="option">项目介绍</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">主机</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="Webapp/hostList.html" target="option">主机列表</a></dd>
+                        <dd><a href="">主机管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">用户</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="Webapp/user.html" target="option">用户列表</a></dd>
+                        <dd><a href="">用户管理</a></dd>
+                    </dl>
+
+                </li>
+                <!--<li class="layui-nav-item"><a href="user.html" target="option">User</a></li>-->
+                <li class="layui-nav-item"><a href="Webapp/operLog.html" target="option">操作日志</a></li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block body %}
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+{#        <div style="padding: 15px;height:100%">#}
+{#            <iframe id="option" name="option" src="Webapp/main.html" style="overflow: visible;" scrolling="no"#}
+{#                    frameborder="no" width="100%" height="100%"></iframe>#}
+{#        </div>#}
+        {% block page %}{% endblock %}
+    </div>
+    <script src="../static/layui/layui.js"></script>
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+            element.on('nav(filter)', function (elem) {
+                console.log(elem); //得到当前点击的DOM对象
+            });
+        });
+    </script>
+    {% endblock %}
+</div>
 </body>
 </html>
