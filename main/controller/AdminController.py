@@ -22,10 +22,11 @@ def addUser():
 @app.route('/admin/user/list')
 @authorize(value=2)
 def userList():
-    offset = request.args.get("offset", None, type=int)
+    offset = request.args.get("page", None, type=int)
     limit = request.args.get("limit", None, type=int)
+    count = userService.count()
     all = userService.all(offset=offset,limit=limit,order_by=None,desc=False)
-    return jsonify(dict(code=200,data=all))
+    return jsonify(dict(code=0,data=all,msg="",count=count))
 
 @app.route('/admin/user/edit',methods=["POST"])
 @authorize(value=2)
