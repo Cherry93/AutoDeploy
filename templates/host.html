@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{% block title %}Main{% endblock %}
+{% block title %}Host{% endblock %}
 {% block head %}
     {{ super() }}
 {% endblock %}
@@ -11,14 +11,14 @@
 {% endblock %}
 
 {% block page %}
-    <table class="layui-table" lay-data="{width: 892, height:332, url:'/admin/project/all', page:true, id:'idTest'}" lay-filter="demo">
+    <table class="layui-table" lay-data="{width: 1000, height:332, url:'/admin/host/all', page:true, id:'idTest'}" lay-filter="demo">
   <thead>
     <tr>
-      <th lay-data="{field:'id', width:50, sort: true, fixed: true}">ID</th>
-      <th lay-data="{field:'name', width:200}">proname</th>
-      <th lay-data="{field:'repo_url', width:300, sort: true}">url</th>
-      <th lay-data="{field:'dict_id', width:80}">dictid</th>
-      <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+      <th lay-data="{field:'id', width:50, sort: true,}">ID</th>
+      <th lay-data="{field:'host_ip', width:200}">host_ip</th>
+      <th lay-data="{field:'ssh_username', width:200, sort: true}">ssh_username</th>
+      <th lay-data="{field:'ssh_password', width:200}">ssh_password</th>
+      <th lay-data="{ width:400, align:'center', toolbar: '#barDemo'}">action</th>
     </tr>
   </thead>
 </table>
@@ -31,7 +31,8 @@
 
 
 <script src="../static/layui/layui.all.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script src="../static/layui/lay/modules/table.js" charset="utf-8"></script>
+
 <script>
 layui.use('table', function(){
   var table = layui.table;
@@ -53,6 +54,7 @@ layui.use('table', function(){
 });
 </script>
 {% endblock %}
+
 {% block body %}
     {{ super() }}
 {% endblock %}

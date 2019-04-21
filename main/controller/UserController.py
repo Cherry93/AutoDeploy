@@ -48,3 +48,15 @@ def index():
 @app.route('/user/page')
 def userpage():
     return render_template('user.html',user=session['user'])
+
+@app.route('/project/page')
+def propage():
+    return render_template('project.html',user=session['user'])
+
+@app.route('/host/page')
+def hostpage():
+    return render_template('host.html',user=session['user'])
+
+@app.route('/dict/page')
+def dictpage():
+    return render_template('dict.html',user=session['user'])

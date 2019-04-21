@@ -5,15 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>{% block title %}{% endblock %}AutoDeploy</title>
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
     {% endblock %}
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     {% block header%}
+        <script src="../static/layui/layui.js"></script>
+        <script src="../static/jQuery.min.js"></script>
+        <script src="../static/layui/layui.all.js" charset="utf-8"></script>
     <div class="layui-header">
-        <div class="layui-logo">AutoDeploy</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <div class="layui-logo">AutoDeploy－运维</div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="Webapp/test.html" target="option">使用手册</a></li>
             <li class="layui-nav-item"><a href="Webapp/test.html" target="option">开发设计</a></li>
@@ -29,7 +31,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <img src="../static/img/avtar.png" class="layui-nav-img">
                     {{ user.name }}
                 </a>
                 <dl class="layui-nav-child">
@@ -37,7 +39,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="Webapp/login.html">out</a></li>
+            <li class="layui-nav-item"><a href="/index">退出登录</a></li>
         </ul>
     </div>
     {% endblock %}
@@ -45,34 +47,33 @@
     {% block black %}
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">项目</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="Webapp/projectTable.html" target="option">项目列表</a></dd>
-                        <dd><a href="Webapp/projectCreate.html" target="option">项目创建</a></dd>
-                        <dd><a href="Webapp/projectIntroduction.html" target="option">项目介绍</a></dd>
+                        <dd><a href="/project/page" target="option">项目列表与操作</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">分类</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/dict/page" target="option">项目分类与操作</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">主机</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="Webapp/hostList.html" target="option">主机列表</a></dd>
-                        <dd><a href="">主机管理</a></dd>
+                        <dd><a href="/host/page" target="option">主机列表与操作</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">用户</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/user/page" target="option">用户列表</a></dd>
-                        <dd><a href="">用户管理</a></dd>
+                        <dd><a href="/user/page" target="option">用户列表与操作</a></dd>
                     </dl>
 
                 </li>
-                <!--<li class="layui-nav-item"><a href="user.html" target="option">User</a></li>-->
-                <li class="layui-nav-item"><a href="Webapp/operLog.html" target="option">操作日志</a></li>
             </ul>
         </div>
     </div>
@@ -80,24 +81,11 @@
 
     {% block body %}
     <div class="layui-body">
-        <!-- 内容主体区域 -->
-{#        <div style="padding: 15px;height:100%">#}
-{#            <iframe id="option" name="option" src="Webapp/main.html" style="overflow: visible;" scrolling="no"#}
-{#                    frameborder="no" width="100%" height="100%"></iframe>#}
-{#        </div>#}
         {% block page %}{% endblock %}
     </div>
-    <script src="../static/layui/layui.js"></script>
-    <script src="../static/jQuery.min.js"></script>
-    <script>
-        layui.use('element', function () {
-            var element = layui.element;
-            element.on('nav(filter)', function (elem) {
-                console.log(elem); //得到当前点击的DOM对象
-            });
-        });
-    </script>
+
     {% endblock %}
+
 </div>
 </body>
 </html>

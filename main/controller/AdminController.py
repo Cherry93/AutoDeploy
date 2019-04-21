@@ -7,7 +7,6 @@ from main.service.ProjectService import projectService
 from main.service.UserService import userService
 from .UserController import authorize
 
-
 # user
 @app.route('/admin/user/add',methods=["POST"])
 @authorize(value=2)
@@ -52,10 +51,11 @@ def delUser(id):
 @app.route('/admin/host/all',methods=["GET"])
 @authorize(value=2)
 def hostList():
-    offset = request.args.get("offset", None, type=int)
+    offset = request.args.get("page", None, type=int)
     limit = request.args.get("limit", None, type=int)
+    count = hostService.count()
     list = hostService.all(offset=offset, limit=limit, order_by=None, desc=False)
-    return jsonify(dict(code=200,data=list))
+    return jsonify(dict(code=0,data=list,count=count))
 
 @app.route('/admin/host/add',methods=["POST"])
 @authorize(value=2)
@@ -91,10 +91,11 @@ def editHost():
 @app.route('/admin/dict/all',methods=["GET"])
 @authorize(value=0)
 def dictList():
-    offset = request.args.get("offset", None, type=int)
+    offset = request.args.get("page", None, type=int)
+    count = dictService.count()
     limit = request.args.get("limit", None, type=int)
     list = dictService.all(offset=offset, limit=limit, order_by=None, desc=False)
-    return jsonify(dict(code=200, data=list))
+    return jsonify(dict(code=0, data=list,count=count))
 
 @app.route('/admin/dict/add',methods=["POST"])
 @authorize(value=2)
@@ -126,12 +127,15 @@ def delDict(id):
     logger.info("userId is %s del dict,dictInfo is %s",opertorId,str(dictM))
     return jsonify(dict(code=200))
 
-# # project
+## project
 @app.route('/admin/project/all',methods=["GET"])
 @authorize(value=2)
 def projectList():
-    list = projectService.all()
-    return jsonify(dict(code=200,data=list))
+    offset = request.args.get("page", None, type=int)
+    limit = request.args.get("limit", None, type=int)
+    count = projectService.count()
+    all = projectService.all(offset=offset, limit=limit, order_by=None, desc=False)
+    return jsonify(dict(code=0, data=all, msg="", count=count))
 
 @app.route('/admin/project/add',methods=["POST"])
 @authorize(value=2)

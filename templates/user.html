@@ -11,28 +11,176 @@
 {% endblock %}
 
 {% block page %}
-    <table class="layui-hide" id="test"></table>
+    <table class="layui-table" lay-data="{width: 1000, height:500, url:'/admin/user/list', page:true, id:'idTest'}" lay-filter="demo">
+  <thead>
+    <tr>
+      <th lay-data="{field:'id', width:50, sort: true}">ID</th>
+      <th lay-data="{field:'name', width:180}">用户姓名</th>
+      <th lay-data="{field:'password', width:180}">密码</th>
+      <th lay-data="{field:'role', width:80}">权限</th>
+      <th lay-data="{field:'email', minWidth:180}">邮箱</th>
+      <th lay-data="{ width:180, align:'center', toolbar: '#barDemo'}">操作</th>
+    </tr>
+  </thead>
+</table>
 
-    <script src="../static/layui/layui.all.js" charset="utf-8"></script>
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="add">add</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<script src="../static/layui/layui.all.js" charset="utf-8"></script>
+<script src="../static/layui/lay/modules/table.js" charset="utf-8"></script>
+<script src="../static/layui/lay/modules/form.js" charset="utf-8"></script>
+<script src="../static/jQuery.min.js" charset="utf-8"></script>
+
+    <form class="layui-form" action="" id="form" hidden="hidden">
+
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">id</label>
+      <div class="layui-input-inline">
+        <input id="uid" type="text" name="id" readonly="readonly" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">id</label>
+      <div class="layui-input-inline">
+        <input id="uname" type="text" name="name"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">id</label>
+      <div class="layui-input-inline">
+        <input id="upassword" type="text" name="password"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">id</label>
+      <div class="layui-input-inline">
+        <input id="uemail" type="text" name="email" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">role</label>
+    <div class="layui-input-block">
+      <input id="urole1" type="radio" name="role" value="1" title="男">
+      <input id="urole2" type="radio" name="role" value="2" title="女">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
+    <form class="layui-form" action="" id="addform" hidden="hidden">
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">name</label>
+      <div class="layui-input-inline">
+        <input id="name" type="text" name="name"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">password</label>
+      <div class="layui-input-inline">
+        <input  type="text" name="password"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">email</label>
+      <div class="layui-input-inline">
+        <input  type="text" name="email" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">role</label>
+    <div class="layui-input-block">
+      <input  type="radio" name="role" value="1" title="1">
+      <input  type="radio" name="role" value="2" title="2">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-filter="go">立即提交</button>
+    </div>
+  </div>
+</form>
 
 <script>
-    layui.use('table', function(){
-  var table = layui.table;
 
-  table.render({
-    elem: '#test'
-    ,url:'/admin/user/list'
-    ,cols: [[
-      {field:'id', width:150, title: 'ID', sort: true}
-      ,{field:'name', width:250, title: '用户名'}
-      ,{field:'password', width:250, title: '密码'}
-      ,{field:'role', width:150, title: '权限'}
-      ,{field:'email', title: '邮箱', minWidth: 150}
-    ]]
-    ,page: true
+
+layui.use('table', function(){
+  var table = layui.table;
+  //监听工具条
+  table.on('tool(demo)', function(obj){
+    var data = obj.data;
+    console.log(data);
+    if(obj.event === 'edit'){
+        $("#uid").val(data.id);
+        $("#uname").val(data.name);
+        $("#upassword").val(data.password);
+        $("#uemail").val(data.email);
+        if (data.role==1){
+            $("#urole1").prop("checked",true);
+        }else if (data.role==2) {
+            $("#urole2").prop("checked",true);
+        }
+        layer.open({
+              type: 1,
+              area: ['600px', '360px'],
+              shadeClose: true, //点击遮罩关闭
+              content: $('#form'),
+              success:function(layero){
+                var mask = $(".layui-layer-shade");
+                mask.appendTo(layero.parent());}
+            });
+    } else if(obj.event === 'del'){
+        $.get("/admin/user/del/"+data.id, function(data){
+			if(data.code == 200){
+			    table.reload('idTest', {
+                    url: '/admin/user/list'
+                });
+			}
+		});
+    }else if (obj.event=='add'){
+        layer.open({
+              type: 1,
+              area: ['600px', '360px'],
+              shadeClose: true, //点击遮罩关闭
+              content: $('#addform').html()
+            });
+    }
   });
 });
 </script>
+    <script>
+        layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+
+        });
+</script>
+
 {% endblock %}
 
 {% block body %}

@@ -8,7 +8,6 @@ class JSONEncoder(BaseJSONEncoder):
             return obj.to_json()
         return super(JSONEncoder, self).default(obj)
 
-
 class JsonSerializer(object):
     __json_hidden__ = None
 

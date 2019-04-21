@@ -64,11 +64,13 @@ class Git(object):
                                   "git reset --hard {2}"
                                   .format(self.location+self.dest, branch, version),
                                   shell=True)
+
     def package(self,branch):
         logger.debug("package project:")
         shell = ("cd {0} && git checkout {1} && mvn package -DskipTests=true").format(self.location+self.dest, branch)
         rc = LocalShell.call(shell, shell=True)
         if rc != 0:
             raise RuntimeError
+
     def deploy(self):
         pass
