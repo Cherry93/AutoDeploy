@@ -24,7 +24,7 @@
 </table>
 
 <script type="text/html" id="barDemo">
-  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">新增</a>
   <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -32,23 +32,86 @@
 
 <script src="../static/layui/layui.all.js" charset="utf-8"></script>
 <script src="../static/layui/lay/modules/table.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+    <form class="layui-form" action="" id="form" hidden="hidden">
+
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">id</label>
+      <div class="layui-input-inline">
+        <input id="uid" type="text" name="id" readonly="readonly" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">name</label>
+      <div class="layui-input-inline">
+        <input id="uname" type="text" name="name"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">repo_url</label>
+      <div class="layui-input-inline">
+        <input id="urepo_url" type="text" name="repo_url"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">dict_id</label>
+      <div class="layui-input-inline">
+        <input id="udict_id" type="text" name="dict_id" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
 <script>
 layui.use('table', function(){
   var table = layui.table;
   //监听工具条
   table.on('tool(demo)', function(obj){
-      console.log(obj)
     var data = obj.data;
-    if(obj.event === 'detail'){
-      layer.msg('ID：'+ data.id + ' 的查看操作');
+    console.log(data);
+    if(obj.event === 'edit'){
+        $("#uid").val(data.id);
+        $("#uname").val(data.name);
+        $("#urepo_url").val(data.repo_url);
+        $("#udict_id").val(data.dict_id);
+        layer.open({
+              type: 1,
+              area: ['600px', '360px'],
+              shadeClose: true, //点击遮罩关闭
+              content: $('#form'),
+              success:function(layero){
+                var mask = $(".layui-layer-shade");
+                mask.appendTo(layero.parent());}
+            });
     } else if(obj.event === 'del'){
-      layer.confirm('真的删除行么', function(index){
-        obj.del();
-        layer.close(index);
-      });
-    } else if(obj.event === 'edit'){
-      layer.alert('编辑行：<br>'+ JSON.stringify(data))
+        $.get("/admin/user/del/"+data.id, function(data){
+			if(data.code == 200){
+			    table.reload('idTest', {
+                    url: '/admin/user/list'
+                });
+			}
+		});
+    }else if (obj.event=='add'){
+        layer.open({
+              type: 1,
+              area: ['600px', '360px'],
+              shadeClose: true, //点击遮罩关闭
+              content: $('#addform').html()
+            });
     }
   });
 });

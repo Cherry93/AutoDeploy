@@ -24,7 +24,7 @@
 </table>
 
 <script type="text/html" id="barDemo">
-  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">新增</a>
   <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -33,22 +33,86 @@
 <script src="../static/layui/layui.all.js" charset="utf-8"></script>
 <script src="../static/layui/lay/modules/table.js" charset="utf-8"></script>
 
+     <form class="layui-form" action="" id="form" hidden="hidden">
+
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">id</label>
+      <div class="layui-input-inline">
+        <input id="uid" type="text" name="id"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">host_ip</label>
+      <div class="layui-input-inline">
+        <input id="uhost_ip" type="text" name="host_ip"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">ssh_username</label>
+      <div class="layui-input-inline">
+        <input id="ussh_username" type="text" name="ssh_username" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+
+         <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">ssh_password</label>
+      <div class="layui-input-inline">
+        <input id="ussh_password" type="text" name="ssh_password" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
 <script>
 layui.use('table', function(){
   var table = layui.table;
   //监听工具条
   table.on('tool(demo)', function(obj){
-      console.log(obj)
     var data = obj.data;
-    if(obj.event === 'detail'){
-      layer.msg('ID：'+ data.id + ' 的查看操作');
+    console.log(data);
+    if(obj.event === 'edit'){
+        $("#uid").val(data.id);
+        $("#uhost_ip").val(data.host_ip);
+        $("#ussh_username").val(data.ssh_username);
+        $("#ussh_password").val(data.ssh_password);
+        layer.open({
+              type: 1,
+              area: ['600px', '360px'],
+              shadeClose: true, //点击遮罩关闭
+              content: $('#form'),
+              success:function(layero){
+                var mask = $(".layui-layer-shade");
+                mask.appendTo(layero.parent());}
+            });
     } else if(obj.event === 'del'){
-      layer.confirm('真的删除行么', function(index){
-        obj.del();
-        layer.close(index);
-      });
-    } else if(obj.event === 'edit'){
-      layer.alert('编辑行：<br>'+ JSON.stringify(data))
+        $.get("/admin/user/del/"+data.id, function(data){
+			if(data.code == 200){
+			    table.reload('idTest', {
+                    url: '/admin/user/list'
+                });
+			}
+		});
+    }else if (obj.event=='add'){
+        layer.open({
+              type: 1,
+              area: ['600px', '360px'],
+              shadeClose: true, //点击遮罩关闭
+              content: $('#addform').html()
+            });
     }
   });
 });
