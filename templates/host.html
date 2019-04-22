@@ -11,13 +11,13 @@
 {% endblock %}
 
 {% block page %}
-    <table class="layui-table" lay-data="{width: 1000, height:332, url:'/admin/host/all', page:true, id:'idTest'}" lay-filter="demo">
+    <table class="layui-table" lay-data="{width: 1100, height:500, url:'/admin/host/all', page:true, id:'idTest'}" lay-filter="demo">
   <thead>
     <tr>
-      <th lay-data="{field:'id', width:50, sort: true,}">ID</th>
+      <th lay-data="{field:'id', width:100, sort: true,}">ID</th>
       <th lay-data="{field:'host_ip', width:200}">host_ip</th>
       <th lay-data="{field:'ssh_username', width:200, sort: true}">ssh_username</th>
-      <th lay-data="{field:'ssh_password', width:200}">ssh_password</th>
+      <th lay-data="{field:'ssh_password', width:250}">ssh_password</th>
       <th lay-data="{ width:400, align:'center', toolbar: '#barDemo'}">action</th>
     </tr>
   </thead>
@@ -135,7 +135,7 @@ layui.use('table', function(){
         $.get("/admin/user/del/"+data.id, function(data){
 			if(data.code == 200){
 			    table.reload('idTest', {
-                    url: '/admin/user/list'
+                    url: '/admin/host/list'
                 });
 			}
 		});
