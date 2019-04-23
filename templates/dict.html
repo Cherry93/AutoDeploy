@@ -100,10 +100,10 @@ layui.use('table', function(){
                 mask.appendTo(layero.parent());}
             });
     } else if(obj.event === 'del'){
-        $.get("/admin/user/del/"+data.id, function(data){
+        $.get("/admin/dict/del/"+data.id, function(data){
 			if(data.code == 200){
 			    table.reload('idTest', {
-                    url: '/admin/dict/list'
+                    url: '/admin/dict/all'
                 });
 			}
 		});
