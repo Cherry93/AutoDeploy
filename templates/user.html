@@ -11,7 +11,19 @@
 {% endblock %}
 
 {% block page %}
-    <table class="layui-table" lay-data="{width: 1100, height:500, url:'/admin/user/list', page:true, id:'idTest'}" lay-filter="demo">
+
+    <br>
+    <center>
+    <div class="demoTable">
+        搜索ID：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+    </center>
+
+    <table class="layui-table" lay-data="{width: 1100, height:460, url:'/admin/user/list', page:true, id:'idTest'}" lay-filter="demo">
   <thead>
     <tr>
       <th lay-data="{field:'id', width:100, sort: true}">ID</th>
@@ -148,7 +160,7 @@ layui.use('table', function(){
         }
         layer.open({
               type: 1,
-              area: ['600px', '360px'],
+              area: ['400px', '360px'],
               shadeClose: true, //点击遮罩关闭
               content: $('#form'),
               success:function(layero){
@@ -166,7 +178,7 @@ layui.use('table', function(){
     }else if (obj.event=='add'){
         layer.open({
               type: 1,
-              area: ['600px', '360px'],
+              area: ['400px', '360px'],
               shadeClose: true, //点击遮罩关闭
               content: $('#addform').html()
             });
