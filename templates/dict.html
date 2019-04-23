@@ -92,7 +92,7 @@ layui.use('table', function(){
         $("#uname").val(data.name);
         layer.open({
               type: 1,
-              area: ['600px', '360px'],
+              area: ['360px', '360px'],
               shadeClose: true, //点击遮罩关闭
               content: $('#form'),
               success:function(layero){
@@ -110,7 +110,7 @@ layui.use('table', function(){
     }else if (obj.event=='add'){
         layer.open({
               type: 1,
-              area: ['600px', '360px'],
+              area: ['360px', '300px'],
               shadeClose: true, //点击遮罩关闭
               content: $('#addform').html()
             });
