@@ -8,7 +8,7 @@ class Git(object):
     def __init__(self, dest, url):
         self.dest = dest
         self.url = url
-        self.location = "/home/dongmengyuan/deployProjects/"
+        self.location = "/home/itcast/Desktop/deployProjects/"
 
     def local_branch(self):
         shell = "cd {0} && git branch".format(self.location+self.dest)
@@ -38,9 +38,8 @@ class Git(object):
 
     def clone(self):
         logger.debug("clone repo:")
-        location = "/home/dongmengyuan/deployProjects"
         shell = ("mkdir -p {0} && cd {0} && git clone -q {1}"
-                 ).format(location,self.url)
+                 ).format(self.location,self.url)
         rc = LocalShell.call(shell, shell=True)
         if rc == 128:
             shell = ("cd {0} && git pull").format(self.location+self.dest)

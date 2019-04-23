@@ -32,13 +32,16 @@ def project_branch_commits(id, branch):
     return jsonify(dict(rc=0,
                         data=projectService.git_branch_commit_log(project, branch)))
 
-@app.route("/api/deploys", methods=["POST"])
-@authorize(value=1)
+@app.route("/api/deploys", methods=["GET"])
+# @authorize(value=1)
 def api_post_deploy():
     form = DeployForm()
-    form.project_id = request.form.get("project_id",type=int)
-    form.branch = request.form.get("branch")
-    form.commit = request.form.get("commit")
+    form.project_id = request.args.get("project_id",type=int)
+    form.branch = request.args.get("branch")
+    form.commit = request.args.get("commit")
+    # form.project_id = request.form.get("project_id",type=int)
+    # form.branch = request.form.get("branch")
+    # form.commit = request.form.get("commit")
     deployService.deploy(form)
     return jsonify(dict())
 
