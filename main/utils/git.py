@@ -71,5 +71,7 @@ class Git(object):
         if rc != 0:
             raise RuntimeError
 
-    def deploy(self):
-        pass
+    def deploy(self,cmd):
+        rc = LocalShell.call(cmd,shell=True)
+        if rc != 0:
+            raise RuntimeError
