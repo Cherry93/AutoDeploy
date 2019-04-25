@@ -8,7 +8,7 @@ class Git(object):
     def __init__(self, dest, url):
         self.dest = dest
         self.url = url
-        self.location = "/home/itcast/Desktop/deployProjects/"
+        self.location = "/home/dongmengyuan/deployProjects/"
 
     def local_branch(self):
         shell = "cd {0} && git branch".format(self.location+self.dest)

@@ -48,9 +48,10 @@
 <script src="../static/layui/lay/modules/form.js" charset="utf-8"></script>
 <script src="../static/jQuery.min.js" charset="utf-8"></script>
 
-    <form class="layui-form" action="" id="form" hidden="hidden">
 
-  <div class="layui-form-item">
+    <form class="layui-form" action="" id="editform" hidden="hidden">
+
+<div class="layui-form-item">
     <div class="layui-inline">
       <label class="layui-form-label">id</label>
       <div class="layui-input-inline">
@@ -60,7 +61,7 @@
   </div>
         <div class="layui-form-item">
       <div class="layui-inline">
-      <label class="layui-form-label">id</label>
+      <label class="layui-form-label">name</label>
       <div class="layui-input-inline">
         <input id="uname" type="text" name="name"  autocomplete="off" class="layui-input">
       </div>
@@ -68,15 +69,23 @@
         </div>
         <div class="layui-form-item">
       <div class="layui-inline">
-      <label class="layui-form-label">id</label>
+      <label class="layui-form-label">password</label>
       <div class="layui-input-inline">
         <input id="upassword" type="text" name="password"  autocomplete="off" class="layui-input">
       </div>
     </div>
         </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">role</label>
+    <div class="layui-input-block">
+      <input id="urole1" type="radio" name="role" value="1" title="1">
+      <input id="urole2" type="radio" name="role" value="2" title="2">
+    </div>
+  </div>
         <div class="layui-form-item">
       <div class="layui-inline">
-      <label class="layui-form-label">id</label>
+      <label class="layui-form-label">email</label>
       <div class="layui-input-inline">
         <input id="uemail" type="text" name="email" autocomplete="off" class="layui-input">
       </div>
@@ -84,21 +93,14 @@
   </div>
 
   <div class="layui-form-item">
-    <label class="layui-form-label">role</label>
     <div class="layui-input-block">
-      <input id="urole1" type="radio" name="role" value="1" title="男">
-      <input id="urole2" type="radio" name="role" value="2" title="女">
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+      <button class="layui-btn" lay-submit lay-filter="edit">立即提交</button>
     </div>
   </div>
 </form>
 
-    <form class="layui-form" action="" id="addform" hidden="hidden">
+
+    <form action="" id="addform" hidden="hidden">
         <div class="layui-form-item">
       <div class="layui-inline">
       <label class="layui-form-label">name</label>
@@ -111,7 +113,7 @@
       <div class="layui-inline">
       <label class="layui-form-label">password</label>
       <div class="layui-input-inline">
-        <input  type="text" name="password"  autocomplete="off" class="layui-input">
+        <input id="password" type="text" name="password"  autocomplete="off" class="layui-input">
       </div>
     </div>
         </div>
@@ -119,22 +121,22 @@
   <div class="layui-form-item">
     <label class="layui-form-label">role</label>
     <div class="layui-input-block">
-      <input  type="radio" name="role" value="1" title="1">
-      <input  type="radio" name="role" value="2" title="2">
+      <input id="role1" type="radio" name="role" value="1" title="1">
+      <input id="role2" type="radio" name="role" value="2" title="2">
     </div>
   </div>
         <div class="layui-form-item">
       <div class="layui-inline">
       <label class="layui-form-label">email</label>
       <div class="layui-input-inline">
-        <input  type="text" name="email" autocomplete="off" class="layui-input">
+        <input  id="email" type="text" name="email" autocomplete="off" class="layui-input">
       </div>
     </div>
   </div>
 
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-filter="go">立即提交</button>
+      <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
     </div>
   </div>
 </form>
@@ -162,7 +164,7 @@ layui.use('table', function(){
               type: 1,
               area: ['400px', '360px'],
               shadeClose: true, //点击遮罩关闭
-              content: $('#form'),
+              content: $('#editform'),
               success:function(layero){
                 var mask = $(".layui-layer-shade");
                 mask.appendTo(layero.parent());}
@@ -185,15 +187,27 @@ layui.use('table', function(){
     }
   });
 });
-</script>
-    <script>
-        layui.use('form', function(){
+
+    layui.use('form', function(){
         var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
         form.render();
+        form.on('submit(add)', function(data){
+              console.log(data.field)
+            });
 
+        form.on('submit(edit)', function(data){
+              console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+              $.post("/admin/user/edit", data.field,function(data){
+			if(data.code == 200){
+			    table.reload('idTest', {
+                    url: '/admin/user/list'
+                });
+			}
+		});
+            });
         });
-</script>
 
+</script>
 {% endblock %}
 
 {% block body %}
