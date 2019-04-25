@@ -25,7 +25,7 @@ class DeployService(Base):
                    " {local_dest}/ {ssh_user}@{ssh_host}:"
                    "{remote_dest}/")
             cmd = cmd.format(ssh_pass=host.ssh_password,
-                       ssh_port=22,
+                       ssh_port=10022,
                        local_dest=git.location+project.name,
                        ssh_user=host.ssh_username,
                        ssh_host=host.host_ip,

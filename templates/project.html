@@ -45,7 +45,7 @@
 <script src="../static/layui/layui.all.js" charset="utf-8"></script>
 <script src="../static/layui/lay/modules/table.js" charset="utf-8"></script>
 
-    <form class="layui-form" action="" id="form" hidden="hidden">
+    <form class="layui-form" action="" id="editform" hidden="hidden">
 
   <div class="layui-form-item">
     <div class="layui-inline">
@@ -82,7 +82,7 @@
 
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button class="layui-btn" lay-submit="" lay-filter="edit">立即提交</button>
       <button type="reset" class="layui-btn layui-btn-primary">重置</button>
     </div>
   </div>
@@ -137,7 +137,7 @@ layui.use('table', function(){
               type: 1,
               area: ['400px', '360px'],
               shadeClose: true, //点击遮罩关闭
-              content: $('#form'),
+              content: $('#editform'),
               success:function(layero){
                 var mask = $(".layui-layer-shade");
                 mask.appendTo(layero.parent());}
@@ -160,6 +160,26 @@ layui.use('table', function(){
     }
   });
 });
+
+
+layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+        form.on('submit(add)', function(data){
+              console.log(data.field)
+            });
+
+        form.on('submit(edit)', function(data){
+              console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+              $.post("/admin/project/edit", data.field,function(data){
+			if(data.code == 200){
+			    table.reload('idTest', {
+                    url: '/admin/project/all'
+                });
+			}
+		});
+            });
+        });
 </script>
 {% endblock %}
 
