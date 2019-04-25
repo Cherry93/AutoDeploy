@@ -6,4 +6,3 @@ class oper_log(JsonSerializer,db.Model):
     user_id = db.Column(db.BIGINT)
     username = db.Column(db.VARCHAR)
     comment = db.Column(db.VARCHAR)
-    create_date = db.Column(db.DateTime)

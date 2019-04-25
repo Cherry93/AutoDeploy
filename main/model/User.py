@@ -8,7 +8,6 @@ class users(JsonSerializer,db.Model):
     password = db.Column(db.VARCHAR)
     role = db.Column(db.Integer)
     email = db.Column(db.VARCHAR)
-    create_date = db.Column(db.DATETIME)
 
     def __str__(self):
         return "user user_id: %d, user_name: %s,role : %s,email is %s" % (self.id, self.name,self.role,self.email)
