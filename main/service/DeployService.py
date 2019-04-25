@@ -31,6 +31,7 @@ class DeployService(Base):
                        ssh_host=host.host_ip,
                        remote_dest=dest+project.name)
             git.deploy(cmd)
+
         except Exception as e:
             return
         # rsync
