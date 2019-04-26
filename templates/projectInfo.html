@@ -35,9 +35,30 @@
 
 {% block page %}
 
-    {% for host in hosts %}
-        <labe>{{ host.host_ip }}</labe>
-    {% endfor %}
+     <div class="layui-form">
+      <table class="layui-table" lay-size="lg">
+        <colgroup>
+          <col width="50">
+{#          <col width="150">#}
+{#          <col width="200">#}
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th>host_ip</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for host in hosts %}
+                <tr>
+                     <td>{{ host.host_ip }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+
 {% endblock %}
 {% block body %}
     {{ super() }}
