@@ -7,11 +7,22 @@ from main.service.ProjectService import projectService
 from main.service.UserService import userService
 from .UserController import authorize
 
-@app.route('/api/project/list/<int:id>')
-@authorize(value=0)
-def dict_projects(id):
-    projects = projectService.find(dict_id=id).all()
-    return jsonify(dict(code=200,data=projects))
+@app.route('/api/dict/project/list')
+#@authorize(value=1)
+def dict_projects():
+    projects = projectService.all(order_by="dict_id")
+    projectdicts = {}
+    for project in projects:
+        Dict = dictService.get(project.dict_id)
+        if projectdicts.has_key(Dict.name):
+            list = projectdicts[Dict.name]
+            list.append(project)
+            projectdicts[Dict.name]=list
+        else:
+            list = []
+            list.append(project)
+            projectdicts[Dict.name] = list
+    return jsonify(dict(code=200,data=projectdicts))
 
 @app.route("/api/projects/<int:id>/branches")
 @authorize(value=1)

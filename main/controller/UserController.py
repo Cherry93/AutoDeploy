@@ -29,7 +29,10 @@ def login():
     if user is not None:
         user.password = None
         session['user'] = user
-        return render_template('main.html', user = user)
+        if user.role == 2:
+            return render_template('main.html', user = user)
+        else:
+            return render_template('Welcome.html',user=user)
     else:
         message = "username not matched password"
         return render_template('login.html',message = message)
@@ -44,6 +47,7 @@ def oper():
 @app.route('/index')
 def index():
     return render_template('login.html')
+
 
 @app.route('/user/page')
 def userpage():

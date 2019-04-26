@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-<<<<<<< HEAD
     <data-source name="AutoDeploy@localhost" uuid="18be2e3e-e09f-4a27-9509-dfbf9e983f86">
-      <database-info product="MySQL" version="5.7.20" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.46 ( Revision: 9cc87a48e75c2d2e87c1a293b2862ce651cb256e )" dbms="MYSQL" exact-version="5.7.20" exact-driver-version="5.1">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <introspection-schemas>*:@</introspection-schemas>
-=======
-    <data-source name="AutoDeploy@localhost" uuid="97d02909-a028-4f3b-b698-37623660352a">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
->>>>>>> 637b3627e107e9562b4544a978d73c186aa7fc9f
     </data-source>
   </component>
 </project>
