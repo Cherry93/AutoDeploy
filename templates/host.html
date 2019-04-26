@@ -174,20 +174,20 @@ layui.use('form', function(){
                     });
                 }
 
-            })
+            });
         });
 
-        form.on('submit(edit)', function(data){
-              console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-              $.post("/admin/host/edit", data.field,function(data){
-                if(data.code == 200){
+        form.on('submit(edit)', function(data) {
+            console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            $.post("/admin/host/edit", data.field, function (data) {
+                if (data.code == 200) {
                     table.reload('idTest', {
                         url: '/admin/host/all'
                     });
-			    }
-		    });
-        );
+                }
+            });
         });
+});
 </script>
 {% endblock %}
 

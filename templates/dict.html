@@ -140,10 +140,10 @@ layui.use('form', function(){
                     if(data.code == 200) {
                         table.reload('idTest', {
                             url: '/admin/dict/all'
-                        })
-                    };
+                        });
+                    }
 
-                })
+                });
         });
 
         form.on('submit(edit)', function(data){
