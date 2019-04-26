@@ -17,18 +17,18 @@
 
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
-        <ul class="layui-nav layui-nav-tree" lay-filter="test">
-            {% for k,v in projectdicts.iteritems() %}
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;">{{ k }}</a>
-                        <dl class="layui-nav-child">
-                            {% for project in v %}
-                                <dd><a href="/api/project/info/{{ project.id }}" target="option">{{ project.name }}</a></dd>
-                            {% endfor %}
-                        </dl>
-                    </li>
-            {% endfor %}
-         </ul>
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                {% for k,v in projectdicts.iteritems() %}
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;">{{ k }}</a>
+                            <dl class="layui-nav-child">
+                                {% for project in v %}
+                                    <dd><a href="/api/project/info/{{ project.id }}" target="option">{{ project.name }}</a></dd>
+                                {% endfor %}
+                            </dl>
+                        </li>
+                {% endfor %}
+             </ul>
         </div>
     </div>
 {% endblock %}
