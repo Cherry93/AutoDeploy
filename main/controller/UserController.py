@@ -3,9 +3,8 @@ from main import app
 from main.service.UserService import userService
 from main.service.OperLogService import operLogService
 from main.service.ProjectService import projectService
-from flask import request,session
-from flask import render_template,jsonify
-from flask import make_response
+from flask import request,session,jsonify
+from flask import render_template
 from datetime import datetime
 from functools import wraps
 
@@ -15,7 +14,7 @@ def authorize(value):
         def wrapper(*args,**kwargs):
             user = session.get("user")
             if user is None:
-                return render_template('login.html',message="登录已经过期,请重新登录")
+                return render_template('login.html',message="login expired")
             if user[u'role'] >= value:
                 return func(*args,**kwargs)
             else:
@@ -38,12 +37,15 @@ def login():
         message = "username not matched password"
         return render_template('login.html',message = message)
 
+@app.route('/logout')
+def logout():
+    session['user']=None
+    return render_template('login.html')
+
 @app.route('/oper')
 @authorize(value=1)
 def oper():
-    user = session.get("user")
-    operLogService.create(user_id=user[u'id'],username=user[u'name'],comment="oper",create_date=datetime.now())
-    return render_template('login.html')
+    return jsonify(dict(code=200))
 
 @app.route('/index')
 def index():
@@ -51,17 +53,21 @@ def index():
 
 
 @app.route('/user/page')
+@authorize(value=2)
 def userpage():
     return render_template('user.html',user=session['user'])
 
 @app.route('/project/page')
+@authorize(value=2)
 def propage():
     return render_template('project.html',user=session['user'])
 
 @app.route('/host/page')
+@authorize(value=2)
 def hostpage():
     return render_template('host.html',user=session['user'])
 
 @app.route('/dict/page')
+@authorize(value=2)
 def dictpage():
     return render_template('dict.html',user=session['user'])

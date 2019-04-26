@@ -4,6 +4,7 @@ from main.service.HostService import hostService
 from main.service.DictService import dictService
 from main.service.DeployService import deployService
 from main.service.ProjectService import projectService
+from main.service.ProjectHostService import projectHostService
 from main.service.UserService import userService
 from .UserController import authorize
 
@@ -23,6 +24,16 @@ def dict_projects():
             list.append(project)
             projectdicts[Dict.name] = list
     return render_template('deploy.html',projectdicts=projectdicts,user=session['user'])
+
+@app.route('/api/project/info/<int:id>')
+@authorize(value=1)
+def project_info(id):
+    projecthosts = projectHostService.find(project_id=id).all()
+    hostids = []
+    for projecthost in projecthosts:
+        hostids.append(projecthost.host_id)
+    hosts=hostService.getByIds(hostids)
+    return render_template('projectInfo.html',hosts=hosts,user=session['user'],projectdicts=projectService.dict_projects())
 
 @app.route("/api/projects/<int:id>/branches")
 @authorize(value=1)

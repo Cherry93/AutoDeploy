@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{% block title %}Deploy1{% endblock %}
+{% block title %}ProjectInfo{% endblock %}
 {% block head %}
     {{ super() }}
 {% endblock %}
@@ -11,11 +11,14 @@
 {% endblock %}
 
 {% block black %}
+    <script type="text/javascript" src="{{ url_for('static', filename='layui/layui.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='jQuery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='layui/layui.all.js') }}"></script>
+
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
         <ul class="layui-nav layui-nav-tree" lay-filter="test">
             {% for k,v in projectdicts.iteritems() %}
-                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:;">{{ k }}</a>
                         <dl class="layui-nav-child">
@@ -31,11 +34,10 @@
 {% endblock %}
 
 {% block page %}
-        <script src="../static/layui/layui.all.js" charset="utf-8"></script>
-    <center>
-        <h1>欢迎来到发布部署平台</h1>
-        <img src="../static/img/img2.png" width="400" height="400">
-    </center>
+
+    {% for host in hosts %}
+        <labe>{{ host.host_ip }}</labe>
+    {% endfor %}
 {% endblock %}
 {% block body %}
     {{ super() }}
