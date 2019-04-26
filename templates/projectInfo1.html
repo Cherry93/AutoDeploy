@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+{% block title %}ProjectInfo{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block logo %}
+    AutoDeploy－发布部署平台
+{% endblock %}
+{% block header %}
+    {{ super() }}
+{% endblock %}
+
+{% block black %}
+    <script type="text/javascript" src="{{ url_for('static', filename='layui/layui.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='jQuery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='layui/layui.all.js') }}"></script>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                {% for k,v in projectdicts.iteritems() %}
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;">{{ k }}</a>
+                            <dl class="layui-nav-child">
+                                {% for project in v %}
+                                    <dd><a href="/api/project/info/{{ project.id }}" target="option">{{ project.name }}</a></dd>
+                                {% endfor %}
+                            </dl>
+                        </li>
+                {% endfor %}
+             </ul>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block page %}
+    {% for host in hosts %}
+         <label style="text-align: center">{{ host.host_ip }}</label>
+    {% endfor %}
+
+{#     <div class="layui-form">#}
+{#      <table class="layui-table" lay-size="lg">#}
+{#        <colgroup>#}
+{#          <col width="50">#}
+{#          <col width="150">#}
+{#          <col width="200">#}
+{#          <col>#}
+{#        </colgroup>#}
+{#        <thead>#}
+{#          <tr>#}
+{#            <th>host_ip</th>#}
+{#          </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#            {% for host in hosts %}#}
+{#                <tr>#}
+{#                     <td>{{ host.host_ip }}</td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#        </tbody>#}
+{#      </table>#}
+{#    </div>#}
+{#    <div>#}
+{#        {{ project.repo_url }}#}
+{#    </div>#}
+
+
+{#    <div>#}
+{#        <label>选择框</label>#}
+{#        <select name="sel" required>#}
+{#            <option value=""></option>#}
+{#            <option value="1">Java</option>#}
+{#            <option value="2">Python</option>#}
+{#            <option value="3">GoLang</option>#}
+{#            <option value="4">C++</option>#}
+{#        </select>#}
+{#    </div>#}
+
+{#    <button class="layui-btn layui-btn-normal">发布</button>#}
+{#    <button class="layui-btn layui-btn-danger">回滚</button>#}
+
+{% endblock %}
+{% block body %}
+    {{ super() }}
+{% endblock %}

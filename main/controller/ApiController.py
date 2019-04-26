@@ -32,8 +32,10 @@ def project_info(id):
     hostids = []
     for projecthost in projecthosts:
         hostids.append(projecthost.host_id)
+    project = projectService.get(id)
     hosts=hostService.getByIds(hostids)
-    return render_template('projectInfo.html',hosts=hosts,user=session['user'],projectdicts=projectService.dict_projects())
+    return render_template('projectInfo.html',hosts=hosts,project=project,
+                           user=session['user'],projectdicts=projectService.dict_projects())
 
 @app.route("/api/projects/<int:id>/branches")
 @authorize(value=1)

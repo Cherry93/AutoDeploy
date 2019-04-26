@@ -71,8 +71,4 @@ def hostpage():
 def dictpage():
     return render_template('dict.html',user=session['user'])
 
-@app.route('/projectInfo/page')
-@authorize(value=1)
-def projectInfopage():
-    return render_template('projectInfo.html',user=session['user'])
 

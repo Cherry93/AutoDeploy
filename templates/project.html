@@ -167,19 +167,27 @@ layui.use('form', function(){
         form.render();
         form.on('submit(add)', function(data){
               console.log(data.field)
-            });
+              $.post("/admin/project/add",data.field,function (data) {
+                  if(data.code == 200) {
+                      table.reload('idTest', {
+                          url: '/admin/project.all'
+                      });
+                  }
+
+              });
+        });
 
         form.on('submit(edit)', function(data){
               console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
               $.post("/admin/project/edit", data.field,function(data){
-			if(data.code == 200){
-			    table.reload('idTest', {
-                    url: '/admin/project/all'
-                });
-			}
-		});
-            });
+                if(data.code == 200){
+                    table.reload('idTest', {
+                        url: '/admin/project/all'
+                    });
+                }
+              });
         });
+});
 </script>
 {% endblock %}
 

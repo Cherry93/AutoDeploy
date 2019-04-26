@@ -126,12 +126,12 @@
       <input id="role2" type="radio" name="role" value="2" title="2">
     </div>
   </div>
-        <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">email</label>
-      <div class="layui-input-inline">
-        <input  id="email" type="text" name="email" autocomplete="off" class="layui-input">
-      </div>
+          <div class="layui-form-item">
+          <div class="layui-inline">
+          <label class="layui-form-label">email</label>
+          <div class="layui-input-inline">
+            <input  id="email" type="text" name="email" autocomplete="off" class="layui-input">
+          </div>
     </div>
   </div>
 
@@ -194,19 +194,27 @@ layui.use('table', function(){
         form.render();
         form.on('submit(add)', function(data){
               console.log(data.field)
-            });
+              $.post("/admin/user/add",data.field,function (data) {
+                  if(data.code == 200) {
+                      table.reload('idTest',{
+                          url: '/admin/user/list'
+                      });
+                  }
+
+              });
+        });
 
         form.on('submit(edit)', function(data){
               console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
               $.post("/admin/user/edit", data.field,function(data){
-			if(data.code == 200){
-			    table.reload('idTest', {
-                    url: '/admin/user/list'
-                });
-			}
-		});
-            });
+                if(data.code == 200){
+                    table.reload('idTest', {
+                        url: '/admin/user/list'
+                    });
+			    }
+		     });
         });
+    });
 
 </script>
 {% endblock %}

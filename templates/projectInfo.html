@@ -57,7 +57,64 @@
         </tbody>
       </table>
     </div>
+    <div>
+        git_url: {{ project.repo_url }}
+    </div>
 
+    <div>
+        <label>选择框</label>
+        <select name="sel" required>
+            <option value=""></option>
+            <option value="1">Java</option>
+            <option value="2">Python</option>
+            <option value="3">GoLang</option>
+            <option value="4">C++</option>
+        </select>
+    </div>
+
+    <form action="" id="addform" hidden="hidden">
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">name</label>
+      <div class="layui-input-inline">
+        <input id="name" type="text" name="name"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">password</label>
+      <div class="layui-input-inline">
+        <input id="password" type="text" name="password"  autocomplete="off" class="layui-input">
+      </div>
+    </div>
+        </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">role</label>
+    <div class="layui-input-block">
+      <input id="role1" type="radio" name="role" value="1" title="1">
+      <input id="role2" type="radio" name="role" value="2" title="2">
+    </div>
+  </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">email</label>
+      <div class="layui-input-inline">
+        <input  id="email" type="text" name="email" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
+    </div>
+  </div>
+</form>
+
+    <button class="layui-btn layui-btn-normal">发布</button>
+    <button class="layui-btn layui-btn-danger">回滚</button>
 
 {% endblock %}
 {% block body %}
