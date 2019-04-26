@@ -1,91 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% block head %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>{% block title %}{% endblock %}AutoDeploy</title>
-    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
-    {% endblock %}
-</head>
-<body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-    {% block header%}
-        <script src="../static/layui/layui.js"></script>
-        <script src="../static/jQuery.min.js"></script>
-        <script src="../static/layui/layui.all.js" charset="utf-8"></script>
-    <div class="layui-header">
-        <div class="layui-logo">AutoDeploy－运维管理平台</div>
-{#        <ul class="layui-nav layui-layout-left">#}
-{#            <li class="layui-nav-item"><a href="Webapp/test.html" target="option">使用手册</a></li>#}
-{#            <li class="layui-nav-item"><a href="Webapp/test.html" target="option">开发设计</a></li>#}
-{#            <li class="layui-nav-item">#}
-{#                <a href="javascript:;">其它系统</a>#}
-{#                <dl class="layui-nav-child">#}
-{#                    <dd><a href="">邮件管理</a></dd>#}
-{#                    <dd><a href="">消息管理</a></dd>#}
-{#                    <dd><a href="">授权管理</a></dd>#}
-{#                </dl>#}
-{#            </li>#}
-{#        </ul>#}
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="../static/img/avtar.png" class="layui-nav-img">
-                    {{ user.name }}
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="Webapp/userInformation.html" target="option">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="/index">退出登录</a></li>
-        </ul>
-    </div>
-    {% endblock %}
+{% extends "index.html" %}
+{% block title %}Deploy1{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block logo %}
+    AutoDeploy－发布部署平台
+{% endblock %}
+{% block header %}
+    {{ super() }}
+{% endblock %}
 
-    {% block black %}
+{% block black %}
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            {% for k,v in projectdicts.iteritems() %}
                 <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">项目分类</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/project/page" target="option">项目列表与操作</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">分类</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/dict/page" target="option">项目分类与操作</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">主机</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/host/page" target="option">主机列表与操作</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">用户</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/user/page" target="option">用户列表与操作</a></dd>
-                    </dl>
-
-                </li>
-            </ul>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">{{ k }}</a>
+                        <dl class="layui-nav-child">
+                            {% for project in v %}
+                                <dd><a href="/project/page" target="option">{{ project.name }}</a></dd>
+                            {% endfor %}
+                        </dl>
+                    </li>
+            {% endfor %}
+         </ul>
         </div>
     </div>
-    {% endblock %}
+{% endblock %}
 
-    {% block body %}
-    <div class="layui-body">
-        {% block page %}{% endblock %}
-    </div>
-
-    {% endblock %}
-
-</div>
-</body>
-</html>
+{% block page %}
+        <script src="../static/layui/layui.all.js" charset="utf-8"></script>
+    <center>
+        <h1>欢迎来到发布部署平台</h1>
+        <img src="../static/img/img2.png" width="400" height="400">
+    </center>
+{% endblock %}
+{% block body %}
+    {{ super() }}
+{% endblock %}

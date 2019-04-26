@@ -15,19 +15,8 @@
         <script src="../static/jQuery.min.js"></script>
         <script src="../static/layui/layui.all.js" charset="utf-8"></script>
     <div class="layui-header">
-        <div class="layui-logo">AutoDeploy－运维管理平台</div>
-{#        <ul class="layui-nav layui-layout-left">#}
-{#            <li class="layui-nav-item"><a href="Webapp/test.html" target="option">使用手册</a></li>#}
-{#            <li class="layui-nav-item"><a href="Webapp/test.html" target="option">开发设计</a></li>#}
-{#            <li class="layui-nav-item">#}
-{#                <a href="javascript:;">其它系统</a>#}
-{#                <dl class="layui-nav-child">#}
-{#                    <dd><a href="">邮件管理</a></dd>#}
-{#                    <dd><a href="">消息管理</a></dd>#}
-{#                    <dd><a href="">授权管理</a></dd>#}
-{#                </dl>#}
-{#            </li>#}
-{#        </ul>#}
+
+        <div class="layui-logo">{% block logo %}AutoDeploy－运维管理平台{% endblock %}</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -72,7 +61,6 @@
                     <dl class="layui-nav-child">
                         <dd><a href="/user/page" target="option">用户列表与操作</a></dd>
                     </dl>
-
                 </li>
             </ul>
         </div>
@@ -83,6 +71,14 @@
     <div class="layui-body">
         {% block page %}{% endblock %}
     </div>
+
+        <script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+
+});
+</script>
 
     {% endblock %}
 

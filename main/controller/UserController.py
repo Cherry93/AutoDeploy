@@ -2,6 +2,7 @@
 from main import app
 from main.service.UserService import userService
 from main.service.OperLogService import operLogService
+from main.service.ProjectService import projectService
 from flask import request,session
 from flask import render_template,jsonify
 from flask import make_response
@@ -27,12 +28,12 @@ def login():
     dict = request.form.to_dict()
     user = userService.first(**dict)
     if user is not None:
-        user.password = None
+        user.password = ""
         session['user'] = user
         if user.role == 2:
             return render_template('main.html', user = user)
         else:
-            return render_template('Welcome.html',user=user)
+            return render_template('deploy.html',user=user,projectdicts=projectService.dict_projects())
     else:
         message = "username not matched password"
         return render_template('login.html',message = message)

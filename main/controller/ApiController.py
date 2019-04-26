@@ -1,5 +1,5 @@
 from main import app,logger
-from flask import request,session,jsonify
+from flask import request,session,jsonify,render_template
 from main.service.HostService import hostService
 from main.service.DictService import dictService
 from main.service.DeployService import deployService
@@ -8,7 +8,7 @@ from main.service.UserService import userService
 from .UserController import authorize
 
 @app.route('/api/dict/project/list')
-#@authorize(value=1)
+@authorize(value=1)
 def dict_projects():
     projects = projectService.all(order_by="dict_id")
     projectdicts = {}
@@ -22,7 +22,7 @@ def dict_projects():
             list = []
             list.append(project)
             projectdicts[Dict.name] = list
-    return jsonify(dict(code=200,data=projectdicts))
+    return render_template('deploy.html',projectdicts=projectdicts,user=session['user'])
 
 @app.route("/api/projects/<int:id>/branches")
 @authorize(value=1)
