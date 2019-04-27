@@ -11,7 +11,6 @@
 {% endblock %}
 
 {% block page %}
-
     <br>
     <center>
     <div class="demoTable">
@@ -90,34 +89,34 @@
 </form>
 
     <form class="layui-form" action="" id="addform" hidden="hidden">
-        <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">host_ip</label>
-      <div class="layui-input-inline">
-        <input id="host_ip" type="text" name="host_ip"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">host_ip</label>
+          <div class="layui-input-inline">
+            <input id="host_ip" type="text" name="host_ip1"  autocomplete="off" class="layui-input">
+          </div>
         </div>
-        <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">ssh_username</label>
-      <div class="layui-input-inline">
-        <input  type="text" name="ssh_username"  autocomplete="off" class="layui-input">
       </div>
-    </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">ssh_username</label>
+          <div class="layui-input-inline">
+            <input  type="text" name="ssh_username1"  autocomplete="off" class="layui-input">
+          </div>
         </div>
+      </div>
         <div class="layui-form-item">
       <div class="layui-inline">
       <label class="layui-form-label">ssh_password</label>
       <div class="layui-input-inline">
-        <input  type="text" name="ssh_password" autocomplete="off" class="layui-input">
+        <input  type="text" name="ssh_password1" autocomplete="off" class="layui-input">
       </div>
     </div>
   </div>
 
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-filter="go">立即提交</button>
+      <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
     </div>
   </div>
 </form>
@@ -164,16 +163,15 @@ layui.use('table', function(){
 
 layui.use('form', function(){
         var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-        form.render();
+        {#form.render();#}
         form.on('submit(add)', function(data){
-              console.log(data.field)
-            $.post("/admin/host/add",data.field,function (data) {
+            console.log(data)
+              $.post("/admin/host/add",data.field,function (data) {
                 if(data.code == 200) {
                     table.reload('idTest', {
                         url: '/admin/host/all'
                     });
                 }
-
             });
         });
 
