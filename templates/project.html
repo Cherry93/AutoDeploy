@@ -46,80 +46,79 @@
 <script src="../static/layui/lay/modules/table.js" charset="utf-8"></script>
 
     <form class="layui-form" action="" id="editform" hidden="hidden">
-
-  <div class="layui-form-item">
-    <div class="layui-inline">
-      <label class="layui-form-label">id</label>
-      <div class="layui-input-inline">
-        <input id="uid" type="text" name="id" readonly="readonly" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-  </div>
         <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">name</label>
-      <div class="layui-input-inline">
-        <input id="uname" type="text" name="name"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">id</label>
+              <div class="layui-input-inline">
+                <input id="uid" type="text" name="id" readonly="readonly" autocomplete="off" class="layui-input">
+              </div>
+            </div>
         </div>
         <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">repo_url</label>
-      <div class="layui-input-inline">
-        <input id="urepo_url" type="text" name="repo_url"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">name</label>
+                <div class="layui-input-inline">
+                  <input id="uname" type="text" name="name"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
         </div>
         <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">dict_id</label>
-      <div class="layui-input-inline">
-        <input id="udict_id" type="text" name="dict_id" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-  </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">repo_url</label>
+                <div class="layui-input-inline">
+                    <input id="urepo_url" type="text" name="repo_url"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">dict_id</label>
+              <div class="layui-input-inline">
+                <input id="udict_id" type="text" name="dict_id" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+         </div>
 
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" lay-submit="" lay-filter="edit">立即提交</button>
-      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-    </div>
-  </div>
-</form>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit="" lay-filter="edit">立即提交</button>
+              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
 
     <form class="layui-form" action="" id="addform" hidden="hidden">
         <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">proname</label>
-      <div class="layui-input-inline">
-        <input id="proname" type="text" name="proname"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
+          <div class="layui-inline">
+              <label class="layui-form-label">proname</label>
+              <div class="layui-input-inline">
+                <input id="proname" type="text" name="proname"  autocomplete="off" class="layui-input">
+              </div>
+          </div>
         </div>
         <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">url</label>
-      <div class="layui-input-inline">
-        <input  type="text" name="url"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
+          <div class="layui-inline">
+              <label class="layui-form-label">url</label>
+              <div class="layui-input-inline">
+                <input  type="text" name="url"  autocomplete="off" class="layui-input">
+              </div>
+          </div>
         </div>
         <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">dictid</label>
-      <div class="layui-input-inline">
-        <input  type="text" name="dictid" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-  </div>
+          <div class="layui-inline">
+              <label class="layui-form-label">dictid</label>
+              <div class="layui-input-inline">
+                <input  type="text" name="dictid" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+        </div>
 
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" lay-filter="go">立即提交</button>
-    </div>
-  </div>
-</form>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-filter="go">立即提交</button>
+            </div>
+        </div>
+    </form>
 
 <script>
 layui.use('table', function(){

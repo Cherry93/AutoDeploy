@@ -71,49 +71,27 @@
   <legend>开发部署工作：</legend>
 </fieldset>
 
-<form class="layui-form" action="">
+<form class="layui-form" action="" lay-filter="encrypt">
 
-  <div class="layui-form-item">
-    <label class="layui-form-label">单行选择框</label>
+  <div class="layui-inline">
+    <label class="layui-form-label">分支</label>
     <div class="layui-input-block">
-      <select name="interest" lay-filter="aihao">
-        <option value=""></option>
-        <option value="0">写作</option>
-        <option value="1" selected="">阅读</option>
-        <option value="2">游戏</option>
-        <option value="3">音乐</option>
-        <option value="4">旅行</option>
+      <select id="branchselect" name="interest" lay-filter="branch">
+          <option value=""></option>
+          {% for branch in branchs %}
+               <option value="{{ branch }}">{{ branch }}</option>
+          {% endfor %}
       </select>
     </div>
   </div>
 
     <div class="layui-inline">
-      <label class="layui-form-label">搜索选择框</label>
-      <div class="layui-input-inline">
-        <select name="modules" lay-verify="required" lay-search="">
-          <option value="">直接选择或搜索选择</option>
-          <option value="1">layer</option>
-          <option value="2">form</option>
-          <option value="3">layim</option>
-          <option value="4">element</option>
-          <option value="5">laytpl</option>
-          <option value="6">upload</option>
-          <option value="7">laydate</option>
-          <option value="8">laypage</option>
-          <option value="9">flow</option>
-          <option value="10">util</option>
-          <option value="11">code</option>
-          <option value="12">tree</option>
-          <option value="13">layedit</option>
-          <option value="14">nav</option>
-          <option value="15">tab</option>
-          <option value="16">table</option>
-          <option value="17">select</option>
-          <option value="18">checkbox</option>
-          <option value="19">switch</option>
-          <option value="20">radio</option>
-        </select>
-      </div>
+      <label class="layui-form-label">提交</label>
+        <div class="layui-input-block">
+          <select id="commitSelect" name="interest" lay-filter="commit">
+            <option value=""></option>
+          </select>
+        </div>
     </div>
 
     <br><br>
@@ -121,7 +99,7 @@
         <div class="layui-input-block">
           <button class="layui-btn" lay-submit="" lay-filter="demo1">立即发布</button>
           <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            <button class="layui-btn layui-btn-danger">回滚</button>
+          <button class="layui-btn layui-btn-danger">回滚</button>
         </div>
     </div>
 
@@ -129,38 +107,36 @@
 
 </form>
 <script>
+
 layui.use(['form', 'layedit', 'laydate'], function(){
     var form = layui.form
-  ,layer = layui.layer
-  ,layedit = layui.layedit
-  ,laydate = layui.laydate;
+    ,layer = layui.layer;
 
-  //日期
-  laydate.render({
-    elem: '#date'
-  });
-  laydate.render({
-    elem: '#date1'
-  });
+    form.on('select(branch)', function(data){
+        console.log(data.value);
+        var url = "/api/projects/" + {{ project.id }} + "/branches/" +data.value+"/commits";
+        $.get(url, function(data){
+			if(data.code == 200){
+                var commits = data.data
+                for (var i=0;i<commits.length;i++){
+                    var value = commits[i].abbreviated_commit;
+                    var text = commits[i].subject;
+                    var option = document.createElement("option");
+                    //转换DOM对象为JQ对象,好用JQ里面提供的方法 给option的value赋值
+                    $(option).val(value);
+                    //给option的text赋值,这就是你点开下拉框能够看到的东西
+                    $(option).text(text);
+                    //获取select 下拉框对象,并将option添加进select
+                    $('#commitSelect').append(option);
+                }
+                form.render();
+			}
+		});
+    });
 
-  //创建一个编辑器
-  var editIndex = layedit.build('LAY_demo_editor');
-
-  //自定义验证规则
-  form.verify({
-    title: function(value){
-      if(value.length < 5){
-        return '标题至少得5个字符啊';
-      }
-    }
-    ,pass: [
-      /^[\S]{6,12}$/
-      ,'密码必须6到12位，且不能出现空格'
-    ]
-    ,content: function(value){
-      layedit.sync(editIndex);
-    }
-  });
+    form.on('select(commit)', function(data){
+        console.log(data);
+    });
 
 
   //监听提交
@@ -171,16 +147,6 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     return false;
   });
 
-  //表单初始赋值
-  form.val('example', {
-    "username": "贤心" // "name": "value"
-    ,"password": "123456"
-    ,"interest": 1
-    ,"like[write]": true //复选框选中状态
-    ,"close": true //开关状态
-    ,"sex": "女"
-    ,"desc": "我爱 layui"
-  })
   form.render();
 
 });

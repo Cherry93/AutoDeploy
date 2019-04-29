@@ -51,100 +51,95 @@
 
 
     <form class="layui-form" action="" id="editform" hidden="hidden">
-
-<div class="layui-form-item">
-    <div class="layui-inline">
-      <label class="layui-form-label">id</label>
-      <div class="layui-input-inline">
-        <input id="uid" type="text" name="id" readonly="readonly" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-  </div>
         <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">name</label>
-      <div class="layui-input-inline">
-        <input id="uname" type="text" name="name"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">id</label>
+              <div class="layui-input-inline">
+                <input id="uid" type="text" name="id" readonly="readonly" autocomplete="off" class="layui-input">
+              </div>
+            </div>
         </div>
         <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">password</label>
-      <div class="layui-input-inline">
-        <input id="upassword" type="text" name="password"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
-        </div>
-
-  <div class="layui-form-item">
-    <label class="layui-form-label">role</label>
-    <div class="layui-input-block">
-      <input id="urole1" type="radio" name="role" value="1" title="1">
-      <input id="urole2" type="radio" name="role" value="2" title="2">
-    </div>
-  </div>
-        <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">email</label>
-      <div class="layui-input-inline">
-        <input id="uemail" type="text" name="email" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-  </div>
-
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" lay-submit lay-filter="edit">立即提交</button>
-    </div>
-  </div>
-</form>
-
-
-    <form action="" id="addform" hidden="hidden">
-        <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">name</label>
-      <div class="layui-input-inline">
-        <input id="name" type="text" name="name"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
-        </div>
-        <div class="layui-form-item">
-      <div class="layui-inline">
-      <label class="layui-form-label">password</label>
-      <div class="layui-input-inline">
-        <input id="password" type="text" name="password"  autocomplete="off" class="layui-input">
-      </div>
-    </div>
-        </div>
-
-  <div class="layui-form-item">
-    <label class="layui-form-label">role</label>
-    <div class="layui-input-block">
-      <input id="role1" type="radio" name="role" value="1" title="1">
-      <input id="role2" type="radio" name="role" value="2" title="2">
-    </div>
-  </div>
-          <div class="layui-form-item">
           <div class="layui-inline">
-          <label class="layui-form-label">email</label>
-          <div class="layui-input-inline">
-            <input  id="email" type="text" name="email" autocomplete="off" class="layui-input">
-          </div>
-    </div>
-  </div>
+          <label class="layui-form-label">name</label>
+              <div class="layui-input-inline">
+                <input id="uname" type="text" name="name"  autocomplete="off" class="layui-input">
+              </div>
+        </div>
+        </div>
+        <div class="layui-form-item">
+           <div class="layui-inline">
+              <label class="layui-form-label">password</label>
+              <div class="layui-input-inline">
+                <input id="upassword" type="text" name="password"  autocomplete="off" class="layui-input">
+              </div>
+           </div>
+        </div>
 
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
-    </div>
-  </div>
-</form>
+        <div class="layui-form-item">
+            <label class="layui-form-label">role</label>
+            <div class="layui-input-block">
+              <input id="urole1" type="radio" name="role" value="1" title="1">
+              <input id="urole2" type="radio" name="role" value="2" title="2">
+            </div>
+        </div>
+        <div class="layui-form-item">
+             <div class="layui-inline">
+             <label class="layui-form-label">email</label>
+             <div class="layui-input-inline">
+                <input id="uemail" type="text" name="email" autocomplete="off" class="layui-input">
+             </div>
+        </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="edit">立即提交</button>
+            </div>
+        </div>
+    </form>
+
+
+    <form class="layui-form" action="" id="addform" hidden="hidden">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+              <label class="layui-form-label">name</label>
+              <div class="layui-input-inline">
+                <input id="name" type="text" name="name"  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+          <label class="layui-form-label">password</label>
+              <div class="layui-input-inline">
+                <input id="password" type="text" name="password"  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">role</label>
+            <div class="layui-input-block">
+              <input id="role1" type="radio" name="role" value="1" title="1">
+              <input id="role2" type="radio" name="role" value="2" title="2">
+            </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+              <label class="layui-form-label">email</label>
+              <div class="layui-input-inline">
+                <input  id="email" type="text" name="email" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
+            </div>
+        </div>
+    </form>
 
 <script>
-
-
 layui.use('table', function(){
   var table = layui.table;
   //监听工具条

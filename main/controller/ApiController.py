@@ -34,8 +34,10 @@ def project_info(id):
         hostids.append(projecthost.host_id)
     project = projectService.get(id)
     hosts=hostService.getByIds(hostids)
+    branchs = projectService.git_branch(project)
     return render_template('projectInfo.html',hosts=hosts,project=project,
-                           user=session['user'],projectdicts=projectService.dict_projects())
+                           user=session['user'],projectdicts=projectService.dict_projects(),
+                           branchs=branchs)
 
 @app.route("/api/projects/<int:id>/branches")
 @authorize(value=1)
@@ -52,13 +54,26 @@ def project_branch_commits(id, branch):
     print(id)
     project = projectService.get(id)
     print(project)
-    projectService.git_clone(project)
-    return jsonify(dict(rc=0,
+#    projectService.git_clone(project)
+    return jsonify(dict(code=200,
                         data=projectService.git_branch_commit_log(project, branch)))
 
 @app.route("/api/deploys", methods=["GET"])
 # @authorize(value=1)
 def api_post_deploy():
+    form = DeployForm()
+    form.project_id = request.args.get("project_id",type=int)
+    form.branch = request.args.get("branch")
+    form.commit = request.args.get("commit")
+    # form.project_id = request.form.get("project_id",type=int)
+    # form.branch = request.form.get("branch")
+    # form.commit = request.form.get("commit")
+    deployService.deploy(form)
+    return jsonify(dict())
+
+@app.route("/api/rollback", methods=["GET"])
+# @authorize(value=1)
+def api_roll_back():
     form = DeployForm()
     form.project_id = request.args.get("project_id",type=int)
     form.branch = request.args.get("branch")
