@@ -18,24 +18,25 @@ class DeployService(Base):
         git.checkout_branch(form.branch,form.commit)
         # deploy
         git.package(form.branch)
-        hosts = projectHostService.first(project_id=form.project_id)
-        host = hostService.get(hosts.host_id)
-        cmd = ("rsync -avzq --include='target/' --include='target/*.jar' --exclude='*' --exclude='*/' "
-               "--rsh=\"sshpass -p {ssh_pass} ssh -p {ssh_port}\" "
-               " {local_dest}/ {ssh_user}@{ssh_host}:"
-               "{remote_dest}/")
-        cmd = cmd.format(ssh_pass=host.ssh_password,
-                   ssh_port=10023,
-                   local_dest=git.location+project.name,
-                   ssh_user=host.ssh_username,
-                   ssh_host=host.host_ip,
-                   remote_dest=dest+project.name)
-        git.deploy(cmd)
-        model = self.__model__()
-        model.host_id=host.id
-        model.project_id=form.project_id
-        model.branch=form.branch
-        model = deployService.save(model=model)
+        prohosts = projectHostService.find(project_id=form.project_id).all()
+        for prohost in prohosts:
+            host = hostService.get(prohost.host_id)
+            cmd = ("rsync -avzq --include='target/' --include='target/*.jar' --exclude='*' --exclude='*/' "
+                   "--rsh=\"sshpass -p {ssh_pass} ssh -p {ssh_port}\" "
+                   " {local_dest}/ {ssh_user}@{ssh_host}:"
+                   "{remote_dest}/")
+            cmd = cmd.format(ssh_pass=host.ssh_password,
+                       ssh_port=host.ssh_port,
+                       local_dest=git.location+project.name,
+                       ssh_user=host.ssh_username,
+                       ssh_host=host.host_ip,
+                       remote_dest=dest+project.name)
+            git.deploy(cmd)
+            model = self.__model__()
+            model.host_id=host.id
+            model.project_id=form.project_id
+            model.branch=form.branch
+            model = deployService.save(model=model)
         return model
 
         # rsync
@@ -52,17 +53,18 @@ class DeployService(Base):
         git.rollback()
         # deploy
         git.package(form.branch)
-        hosts = projectHostService.first(project_id=form.project_id)
-        host = hostService.get(hosts.host_id)
-        cmd = ("rsync -avzq --include='target/' --include='target/*.jar' --exclude='*' --exclude='*/' "
-               "--rsh=\"sshpass -p {ssh_pass} ssh -p {ssh_port}\" "
-               " {local_dest}/ {ssh_user}@{ssh_host}:"
-               "{remote_dest}/")
-        cmd = cmd.format(ssh_pass=host.ssh_password,
-                         ssh_port=10023,
-                         local_dest=git.location + project.name,
-                         ssh_user=host.ssh_username,
-                         ssh_host=host.host_ip,
-                         remote_dest=dest + project.name)
-        git.deploy(cmd)
+        prohosts = projectHostService.find(project_id=form.project_id).all()
+        for prohost in prohosts:
+            host = hostService.get(prohost.host_id)
+            cmd = ("rsync -avzq --include='target/' --include='target/*.jar' --exclude='*' --exclude='*/' "
+                   "--rsh=\"sshpass -p {ssh_pass} ssh -p {ssh_port}\" "
+                   " {local_dest}/ {ssh_user}@{ssh_host}:"
+                   "{remote_dest}/")
+            cmd = cmd.format(ssh_pass=host.ssh_password,
+                             ssh_port=host.ssh_port,
+                             local_dest=git.location + project.name,
+                             ssh_user=host.ssh_username,
+                             ssh_host=host.host_ip,
+                             remote_dest=dest + project.name)
+            git.deploy(cmd)
 deployService = DeployService()
