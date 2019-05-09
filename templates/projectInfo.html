@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block black %}
-    <script type="text/javascript" src="{{ url_for('static', filename='layui/layui.js') }}"></script>
+{#    <script type="text/javascript" src="{{ url_for('static', filename='layui/layui.js') }}"></script>#}
+{#    <script type="text/javascript" src="{{ url_for('static', filename='layui/layui.all.js') }}"></script>#}
     <script type="text/javascript" src="{{ url_for('static', filename='jQuery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='layui/layui.all.js') }}"></script>
 
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
@@ -71,16 +71,17 @@
   <legend>开发部署工作：</legend>
 </fieldset>
 
-<form class="layui-form" action="" lay-filter="encrypt">
-
+<form class="layui-form" lay-filter="encrypt">
+    {% if deploy %}
+        <input id="deploybranch" type="hidden" value="{{ deploy.branch }}">
+    {% else %}
+        <input id="deploybranch" type="hidden" >
+    {% endif %}
   <div class="layui-inline">
     <label class="layui-form-label">分支</label>
     <div class="layui-input-block">
-      <select id="branchselect" name="interest" lay-filter="branch">
+      <select id="branchselect" name="branch" lay-filter="branch">
           <option value=""></option>
-          {% for branch in branchs %}
-               <option value="{{ branch }}">{{ branch }}</option>
-          {% endfor %}
       </select>
     </div>
   </div>
@@ -88,7 +89,7 @@
     <div class="layui-inline">
       <label class="layui-form-label">提交</label>
         <div class="layui-input-block">
-          <select id="commitSelect" name="interest" lay-filter="commit">
+          <select id="commitSelect" name="commit" lay-filter="commit">
             <option value=""></option>
           </select>
         </div>
@@ -98,19 +99,54 @@
     <div class="layui-form-item">
         <div class="layui-input-block">
           <button class="layui-btn" lay-submit="" lay-filter="demo1">立即发布</button>
-          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-          <button class="layui-btn layui-btn-danger">回滚</button>
+
         </div>
     </div>
 
-
-
 </form>
+    <div>
+        <button class="layui-btn layui-btn-danger" onclick="rollback()">回滚</button>
+    </div>
 <script>
+
+function rollback(){
+    var url = "/api/rollback/" + {{ project.id }};
+    deploybranch = $("#deploybranch").val()
+    $.post(url, {"branch":deploybranch},
+        function(data){
+            if (data.code == 200){
+                layer.alert('rollback success');
+            } else {
+                layer.alert(data.msg);
+            }
+    });
+}
+
+
 
 layui.use(['form', 'layedit', 'laydate'], function(){
     var form = layui.form
     ,layer = layui.layer;
+
+    $(document).ready(function () {
+        var url = "/api/projects/" + {{ project.id }} + "/branches";
+        $.get(url, function(data){
+			if(data.code == 200){
+                var branchs = data.data
+                for (var i=0;i<branchs.length;i++){
+                    var value = branchs[i];
+                    var option = document.createElement("option");
+                    //转换DOM对象为JQ对象,好用JQ里面提供的方法 给option的value赋值
+                    $(option).val(value);
+                    //给option的text赋值,这就是你点开下拉框能够看到的东西
+                    $(option).text(value);
+                    //获取select 下拉框对象,并将option添加进select
+                    $('#branchselect').append(option);
+                }
+                form.render('select','encrypt');
+			}
+		});
+    });
 
     form.on('select(branch)', function(data){
         console.log(data.value);
@@ -129,7 +165,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                     //获取select 下拉框对象,并将option添加进select
                     $('#commitSelect').append(option);
                 }
-                form.render();
+                form.render('select','encrypt');
 			}
 		});
     });
@@ -141,9 +177,17 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
   //监听提交
   form.on('submit(demo1)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
+    var url = "/api/deploys/" + {{ project.id }};
+
+        $.post(url, data.field,function(data){
+            if(data.code == 200){
+                $("#deploybranch").val(data.deploybranch);
+                alert(123)
+                layer.alert('deploy success');
+            }else {
+                layer.alert(data.msg);
+            }
+        });
     return false;
   });
 

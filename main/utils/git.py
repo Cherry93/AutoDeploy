@@ -75,3 +75,12 @@ class Git(object):
         rc = LocalShell.call(cmd,shell=True)
         if rc != 0:
             raise RuntimeError
+
+    def rollback(self):
+        shell = ("cd {0} && git reset --hard HEAD~").format(self.location+self.dest)
+        rc = LocalShell.call(shell, shell=True)
+        if rc != 0:
+            raise RuntimeError
+
+
+

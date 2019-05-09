@@ -34,10 +34,10 @@ def project_info(id):
         hostids.append(projecthost.host_id)
     project = projectService.get(id)
     hosts=hostService.getByIds(hostids)
-    branchs = projectService.git_branch(project)
+    deploy = deployService.first(project_id=id)
     return render_template('projectInfo.html',hosts=hosts,project=project,
                            user=session['user'],projectdicts=projectService.dict_projects(),
-                           branchs=branchs)
+                           deploy=deploy)
 
 @app.route("/api/projects/<int:id>/branches")
 @authorize(value=1)
@@ -58,31 +58,34 @@ def project_branch_commits(id, branch):
     return jsonify(dict(code=200,
                         data=projectService.git_branch_commit_log(project, branch)))
 
-@app.route("/api/deploys", methods=["GET"])
-# @authorize(value=1)
-def api_post_deploy():
+@app.route("/api/deploys/<int:id>", methods=["POST"])
+@authorize(value=1)
+def api_post_deploy(id):
     form = DeployForm()
-    form.project_id = request.args.get("project_id",type=int)
-    form.branch = request.args.get("branch")
-    form.commit = request.args.get("commit")
-    # form.project_id = request.form.get("project_id",type=int)
-    # form.branch = request.form.get("branch")
-    # form.commit = request.form.get("commit")
-    deployService.deploy(form)
-    return jsonify(dict())
+    # form.project_id = request.args.get("project_id",type=int)
+    # form.branch = request.args.get("branch")
+    # form.commit = request.args.get("commit")
+    form.project_id = id
+    form.branch = request.form.get("branch")
+    form.commit = request.form.get("commit")
+    try:
+        model = deployService.deploy(form)
+        return jsonify(dict(code=200,deploybranch=form.branch))
+    except Exception as e:
+        return jsonify(dict(code=500,msg=e.message))
 
-@app.route("/api/rollback", methods=["GET"])
-# @authorize(value=1)
-def api_roll_back():
+
+@app.route("/api/rollback/<int:id>", methods=["POST"])
+@authorize(value=1)
+def api_roll_back(id):
     form = DeployForm()
-    form.project_id = request.args.get("project_id",type=int)
-    form.branch = request.args.get("branch")
-    form.commit = request.args.get("commit")
-    # form.project_id = request.form.get("project_id",type=int)
-    # form.branch = request.form.get("branch")
-    # form.commit = request.form.get("commit")
-    deployService.deploy(form)
-    return jsonify(dict())
+    form.project_id = id
+    form.branch = request.form.get("branch")
+    try:
+        deployService.rollback(form)
+        return jsonify(dict(code=200))
+    except Exception as e:
+        return jsonify(dict(code=500,msg=e.message))
 
 class DeployForm():
     pass

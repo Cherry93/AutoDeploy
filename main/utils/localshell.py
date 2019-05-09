@@ -27,6 +27,7 @@ class LocalShell(object):
     def call(*args, **kargs):
         cmd = kargs.get("args") or args[0]
         logger.debug("local shell: %s" % cmd)
+        print cmd
         process = Popen(*args, stdout=PIPE, stderr=PIPE, **kargs)
         stdout, stderr = process.communicate()
         stdout = stdout.decode("utf-8")
