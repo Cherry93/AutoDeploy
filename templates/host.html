@@ -25,11 +25,13 @@
     <table class="layui-table" lay-data="{width: 1100, height:490, url:'/admin/host/all', page:true, id:'idTest'}" lay-filter="demo">
   <thead>
     <tr>
-      <th lay-data="{field:'id', width:100, sort: true,}">ID</th>
-      <th lay-data="{field:'host_ip', width:200}">host_ip</th>
-      <th lay-data="{field:'ssh_username', width:200, sort: true}">ssh_username</th>
-      <th lay-data="{field:'ssh_password', width:250}">ssh_password</th>
-      <th lay-data="{ width:400, align:'center', toolbar: '#barDemo'}">action</th>
+      <th lay-data="{field:'id', width:50, sort: true,}">ID</th>
+      <th lay-data="{field:'host_ip', width:150}">host_ip</th>
+      <th lay-data="{field:'ssh_username', width:150, sort: true}">ssh_username</th>
+      <th lay-data="{field:'ssh_password', width:150}">ssh_password</th>
+      <th lay-data="{field:'ssh_port', width:150, sort: true}">ssh_port</th>
+      <th lay-data="{field:'host_name', width:150}">host_name</th>
+      <th lay-data="{ width:300, align:'center', toolbar: '#barDemo'}">action</th>
     </tr>
   </thead>
 </table>
@@ -109,6 +111,22 @@
       <label class="layui-form-label">ssh_password</label>
       <div class="layui-input-inline">
         <input  type="text" name="ssh_password1" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">ssh_port</label>
+      <div class="layui-input-inline">
+        <input  type="text" name="ssh_port1" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+        <div class="layui-form-item">
+      <div class="layui-inline">
+      <label class="layui-form-label">host_name</label>
+      <div class="layui-input-inline">
+        <input  type="text" name="host_name1" autocomplete="off" class="layui-input">
       </div>
     </div>
   </div>
