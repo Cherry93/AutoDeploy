@@ -2,10 +2,9 @@ from main import app,logger
 from flask import request,session,jsonify,render_template
 from main.service.HostService import hostService
 from main.service.DictService import dictService
-from main.service.DeployService import deployService
+from main.service.DeployService import deployService, deploy_Notify, flag
 from main.service.ProjectService import projectService
 from main.service.ProjectHostService import projectHostService
-from main.service.UserService import userService
 from .UserController import authorize
 
 @app.route('/api/dict/project/list')
@@ -86,6 +85,20 @@ def api_roll_back(id):
         return jsonify(dict(code=200))
     except Exception as e:
         return jsonify(dict(code=500,msg=e.message))
+
+
+@app.route("/api/deploy/notify")
+def api_notify():
+    deploy_Notify()
+    return jsonify(dict())
+
+@app.route("/api/deploy/selectFlag")
+def deploy_notify():
+    f = flag()
+    if f:
+        return jsonify(dict(code=200))
+    else:
+        return jsonify(dict(code=500))
 
 class DeployForm():
     pass

@@ -110,6 +110,11 @@
             <button class="layui-btn layui-btn-danger" onclick="rollback()">回滚</button>
         </div>
     </center>
+    <center>
+        <div>
+            <button id="notifyButton" class="layui-btn layui-btn-radius layui-btn-disabled" onclick="notify()">继续发布</button>
+        </div>
+    </center>
 <script>
 
 function rollback(){
@@ -123,6 +128,15 @@ function rollback(){
                 layer.alert(data.msg);
             }
     });
+}
+
+function notify(){
+    var url = "/api/deploy/notify";
+    $.get(url,
+        function(data){
+            console.log(data)
+    });
+    $("#notifyButton").attr('disabled',true);
 }
 
 
@@ -181,16 +195,23 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   //监听提交
   form.on('submit(demo1)', function(data){
     var url = "/api/deploys/" + {{ project.id }};
-
         $.post(url, data.field,function(data){
             if(data.code == 200){
                 $("#deploybranch").val(data.deploybranch);
-                alert(123)
                 layer.alert('deploy success');
             }else {
-                layer.alert(data.msg);
+                layer.alert('deploy failed');
             }
         });
+
+        setInterval(function () {
+            $.get("/api/deploy/selectFlag", function (data) {
+                if (data.code == 200) {
+                    $("#notifyButton").attr('class', 'layui-btn layui-btn-radius');
+                }
+            });
+        }, 4000)
+
     return false;
   });
 
